@@ -83,12 +83,13 @@ export default function NewPostPage() {
         throw new Error('Post was created but no data returned')
       }
 
-      console.log('Post created:', post.id)
+      const postData = post as any
+      console.log('Post created:', postData.id)
 
       // Insert images
       if (images.length > 0) {
         const imageInserts = images.map((img, index) => ({
-          post_id: post.id,
+          post_id: postData.id,
           image_url: img.url,
           caption: img.caption || null,
           "order": index, // Quote order since it's a reserved keyword

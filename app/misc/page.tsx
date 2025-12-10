@@ -58,7 +58,7 @@ export default function MiscPage() {
           media_type: mediaType,
           caption: caption.trim() || null,
           author_id: user.id,
-        })
+        } as any)
 
       if (error) throw error
 

@@ -44,16 +44,21 @@ export default function EditPostPage() {
 
       if (postError) throw postError
 
-      setTitle(post.title)
-      setContent(post.content)
-      setFeaturedImageUrl(post.featured_image_url || '')
-      setExcerpt(post.excerpt || '')
+      if (!post) {
+        throw new Error('Post not found')
+      }
+
+      const postData = post as any
+      setTitle(postData.title)
+      setContent(postData.content)
+      setFeaturedImageUrl(postData.featured_image_url || '')
+      setExcerpt(postData.excerpt || '')
 
       // Load images
       const { data: postImages, error: imagesError } = await supabase
         .from('blog_post_images')
         .select('*')
-        .eq('post_id', post.id)
+        .eq('post_id', postData.id)
       
       if (imagesError) {
         console.error('Error loading images:', imagesError)
@@ -64,7 +69,7 @@ export default function EditPostPage() {
       const sortedImages = postImages ? [...postImages].sort((a: any, b: any) => (a.order || 0) - (b.order || 0)) : []
 
       if (sortedImages && sortedImages.length > 0) {
-        setImages(sortedImages.map(img => ({
+        setImages(sortedImages.map((img: any) => ({
           id: img.id,
           url: img.image_url,
           caption: img.caption || '',
@@ -104,9 +109,11 @@ export default function EditPostPage() {
 
       if (!post) throw new Error('Post not found')
 
+      const postId = (post as any).id
+
       // Update blog post
-      const { error: postError } = await supabase
-        .from('blog_posts')
+      const { error: postError } = await (supabase
+        .from('blog_posts') as any)
         .update({
           title,
           content,
@@ -114,7 +121,7 @@ export default function EditPostPage() {
           featured_image_url: featuredImageUrl || null,
           updated_at: new Date().toISOString(),
         })
-        .eq('id', post.id)
+        .eq('id', postId)
 
       if (postError) throw postError
 
@@ -122,12 +129,12 @@ export default function EditPostPage() {
       await supabase
         .from('blog_post_images')
         .delete()
-        .eq('post_id', post.id)
+        .eq('post_id', postId)
 
       // Insert new images
       if (images.length > 0) {
         const imageInserts = images.map((img, index) => ({
-          post_id: post.id,
+          post_id: postId,
           image_url: img.url,
           caption: img.caption || null,
           "order": index, // Quote order since it's a reserved keyword

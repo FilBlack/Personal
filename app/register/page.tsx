@@ -57,7 +57,7 @@ export default function RegisterPage() {
             id: data.user.id,
             username,
             is_admin: false,
-          }, {
+          } as any, {
             onConflict: 'id'
           })
 

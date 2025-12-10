@@ -65,7 +65,7 @@ export default function CommentTree({ postId, parentId = null, depth = 0, onComm
       }
 
       // Get all unique author IDs
-      const authorIds = [...new Set((data || []).map(c => c.author_id))]
+      const authorIds = [...new Set((data || []).map((c: any) => c.author_id))]
       
       // Fetch user profiles
       const { data: profiles } = await supabase
@@ -73,12 +73,12 @@ export default function CommentTree({ postId, parentId = null, depth = 0, onComm
         .select('id, username')
         .in('id', authorIds)
 
-      const profileMap = new Map(profiles?.map(p => [p.id, p.username]) || [])
+      const profileMap = new Map((profiles || []).map((p: any) => [p.id, p.username]))
 
       // Process comments and get reply counts
       const processedComments: Comment[] = []
       
-      for (const comment of (data || [])) {
+      for (const comment of ((data || []) as any[])) {
         // Get reply count
         const { count } = await supabase
           .from('comments')
@@ -123,7 +123,7 @@ export default function CommentTree({ postId, parentId = null, depth = 0, onComm
           author_id: user.id,
           parent_id: parentIdToSubmit,
           content: contentToSubmit,
-        })
+        } as any)
 
       if (error) throw error
 

@@ -34,7 +34,7 @@ export function useAuth() {
             console.error('Error fetching user profile:', profileError)
           }
           
-          setIsSuperUser(profile?.is_admin === true)
+          setIsSuperUser((profile as any)?.is_admin === true)
         } else {
           setUser(null)
           setIsSuperUser(false)
@@ -67,7 +67,7 @@ export function useAuth() {
             .eq('id', session.user.id)
             .single()
           
-          setIsSuperUser(profile?.is_admin === true)
+          setIsSuperUser((profile as any)?.is_admin === true)
         } else {
           setIsSuperUser(false)
           // Clear cookies on logout
