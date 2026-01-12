@@ -32,11 +32,11 @@ export default function Navbar() {
       }
       
       // Force a full page reload to ensure all cookies and state are cleared
-      window.location.href = '/'
+      window.location.href = '/about'
     } catch (err: any) {
       console.error('Logout error:', err)
       // Force redirect even on error
-      window.location.href = '/'
+      window.location.href = '/about'
     }
   }
 

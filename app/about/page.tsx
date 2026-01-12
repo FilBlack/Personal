@@ -16,14 +16,9 @@ export default async function AboutPage() {
         <h1 className="text-5xl font-bold text-black mb-6">About Me</h1>
         <div className="prose prose-lg max-w-3xl">
           <p className="text-xl text-gray-700 leading-relaxed">
-            Welcome to my personal blog! I'm a developer passionate about creating 
-            meaningful projects and sharing knowledge with others.
+            Hi, thanks for visiting my site. 
           </p>
-          <p className="text-lg text-gray-600 leading-relaxed mt-4">
-            This site is where I document my journey, share my thoughts on technology, 
-            and showcase the projects I've been working on. Feel free to explore and 
-            reach out if you'd like to connect!
-          </p>
+        
         </div>
       </div>
 
