@@ -10,7 +10,7 @@ export default function Home() {
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
           A place where I share my thoughts, projects, and random musings.
         </p>
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center items-center gap-4">
           <Link
             href="/blog"
             className="px-6 py-3 bg-black text-white rounded hover:bg-gray-800 transition-colors"
